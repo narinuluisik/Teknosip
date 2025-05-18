@@ -1,0 +1,84 @@
+﻿@model List<TeknosipEntityLayer.Concrete.About>
+
+<section id="about" class="about section">
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 align-items-center justify-content-between">
+
+            @foreach (var item in Model)
+            {
+                <div class="col-xl-5" data-aos="fade-up" data-aos-delay="200">
+                    <span class="about-meta">@item.Meta</span>
+                    <h2 class="about-title">@item.Baslik</h2>
+                    <p class="about-description">@item.Aciklama</p>
+
+                    <div class="row feature-list-wrapper">
+                        @{
+                            var ozellikler = item.Ozellikler1?.Split(',') ?? new string[0];
+                            var ilkKolon = ozellikler.Take(3).ToList();
+                            var ikinciKolon = ozellikler.Skip(3).Take(3).ToList();
+                        }
+
+                        <div class="col-md-6">
+                            <ul class="feature-list">
+                                @foreach (var ozellik in ilkKolon)
+                                {
+                                    <li><i class="bi bi-check-circle-fill"></i> @ozellik</li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="feature-list">
+                                @foreach (var ozellik in ikinciKolon)
+                                {
+                                    <li><i class="bi bi-check-circle-fill"></i> @ozellik</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="info-wrapper">
+                        <div class="row gy-4">
+                            <div class="col-lg-5">
+                                <div class="profile d-flex align-items-center gap-3">
+                                    <img src="@item.CeoResimUrl" alt="CEO Profile" class="profile-image" />
+                                    <div>
+                                        <h4 class="profile-name">Yönetici</h4>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <div class="contact-info d-flex align-items-center gap-2">
+                                    <i class="bi bi-telephone-fill"></i>
+                                    <div>
+                                        <p class="contact-label">Bizimle iletişime geçin</p>
+                                        <p class="contact-number">@item.Telefon</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            }
+
+
+
+            <div class="col-xl-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="image-wrapper">
+                    <div class="~/iLanding/images position-relative" data-aos="zoom-out" data-aos-delay="400">
+                        <img src="~/iLanding/assets/img/about-5.webp" alt="Business Meeting" class="img-fluid main-image rounded-4">
+                        <img src="~/iLanding/assets/img/about-2.webp" alt="Team Discussion" class="img-fluid small-image rounded-4">
+                    </div>
+                   @* <div class="experience-badge floating">
+                        <h3>15+ <span>Years</span></h3>
+                        <p>Of experience in business service</p>
+                    </div>*@
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
