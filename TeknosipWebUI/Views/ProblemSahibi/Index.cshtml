@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null; // İstersen burayı "_Layout" yapabilirsin
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+@await Component.InvokeAsync("_DefaultHeadPartial")
+
+<body class="index-page">
+
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+                <h1 class="sitename">TEKNOSIP</h1>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="/ProblemSahibi" class="active">Anasayfa</a></li>
+                    <li><a href="/ProblemSahibi/Problemler">Problemlerim</a></li>
+                    <li><a href="/ProblemSahibi/YeniProblem">Yeni Problem Ekle</a></li>
+                    <li><a href="/Account/Logout">Çıkış Yap</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+        </div>
+    </header>
+
+
+    <section id="hero" class="hero section py-5">
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+               <br />
+            <br />   
+            <div class="row align-items-center">
+             
+                <!-- Sol kısım: Başlık ve açıklama -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="hero-content">
+                        <div class="company-badge mb-4 d-flex align-items-center">
+                            <i class="bi bi-lightbulb me-2 fs-4"></i>
+                            <strong>Sorununuzu Paylaşın, Çözüme Ulaşalım!</strong>
+                        </div>
+
+                        <h1 class="mb-4">
+                            Sorunlarınızı <br>
+                            Uzmanlar ve Yatırımcılarla <br>
+                            <span class="accent-text">Hemen Paylaşın</span>
+                        </h1>
+
+                        <p class="mb-3">
+                            Sorununuzu detaylıca anlatın. Yatırımcılarımız ve uzmanlarımız sorunuzu inceleyip, sizinle iletişime geçecektir.
+                        </p>
+
+                        <div class="d-flex gap-4 mt-4">
+                            <div>
+                                <i class="bi bi-check-circle-fill text-success fs-3"></i>
+                                <p><strong>Yatırımcı İncelemesi</strong><br>Başvurunuz yatırımcılarımız tarafından dikkatle incelenir.</p>
+                            </div>
+                            <div>
+                                <i class="bi bi-people-fill text-primary fs-3"></i>
+                                <p><strong>Uzman Desteği</strong><br>Alanında uzman kişiler çözüm önerileri sunar.</p>
+                            </div>
+                            <div>
+                                <i class="bi bi-chat-dots-fill text-info fs-3"></i>
+                                <p><strong>İletişim</strong><br>Sizinle en uygun zamanda iletişime geçilir.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sağ kısım: Form -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300" style="padding-top: 80px;">
+                    <div class="card shadow-lg p-5 rounded-4">
+                        <h3 class="mb-4 text-center">Sorun Bildir</h3>
+                        <form method="post" action="/ProblemSahibi/YeniProblem" novalidate>
+                            <div class="mb-3">
+                                <label for="baslik" class="form-label">Sorunun Başlığı</label>
+                                <input type="text" class="form-control" id="baslik" name="Title" placeholder="Sorunuzun başlığını yazınız" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="aciklama" class="form-label">Sorunun Detayları</label>
+                                <textarea class="form-control" id="aciklama" name="Description" rows="5" placeholder="Sorununuzu detaylıca anlatınız" required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="yatirim" class="form-label">Hedeflenen Yatırım Miktarı</label>
+                                <input type="text" class="form-control" id="yatirim" name="Price" placeholder="Yatırım miktarını yazınız" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="kategori" class="form-label">Sektör Seçiniz</label>
+                                <select class="form-select" id="kategori" name="SectorId" required>
+                                    <option value="" selected disabled>Bir kategori seçin</option>
+                                    <option value="1">Yatırım</option>
+                                    <option value="2">Teknik Destek</option>
+                                    <option value="3">İş ve Süreç</option>
+                                    <option value="4">Diğer</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2 fs-5">Sorunu Gönder</button>
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Kullanıcının daha önce bildirdiği sorunlar -->
+    <section class="section py-5">
+        <div class="container">
+            @await Html.PartialAsync("SorunlarPartial")
+        </div>
+    </section>
+
+    @await Component.InvokeAsync("_DefaultFooterPartial")
+
+    <!-- Scroll Top -->
+    @await Component.InvokeAsync("_DefaultScriptPartial")
+
+</body>
+
+</html>

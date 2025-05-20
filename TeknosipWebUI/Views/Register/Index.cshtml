@@ -1,0 +1,94 @@
+﻿@model TeknosipEntityLayer.Concrete.AppUser
+@{
+    Layout = null;
+    ViewData["Title"] = "Kayıt Ol";
+    var roles = ViewBag.Roles as List<string>;
+}
+
+<!DOCTYPE html>
+<html class="h-100" lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kayıt Ol - Teknosip</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="~/adminweb/assets/images/favicon.png">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+    <link href="~/adminweb/css/style.css" rel="stylesheet">
+</head>
+
+<body class="h-100">
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" />
+            </svg>
+        </div>
+    </div>
+
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                <a class="text-center" href="/"> <h4>Teknosip</h4></a>
+
+                                <form asp-action="Index" method="post" class="mt-5 mb-5 login-input">
+                                    <div class="form-group">
+                                        <input asp-for="Name" class="form-control" placeholder="Ad" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input asp-for="Surname" class="form-control" placeholder="Soyad" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input asp-for="UserName" class="form-control" placeholder="Kullanıcı Adı" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input asp-for="Email" type="email" class="form-control" placeholder="Email" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="password" type="password" class="form-control" placeholder="Şifre" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="selectedRole" class="form-control" required>
+                                            <option value="">Rol Seçin</option>
+                                            @foreach (var role in roles)
+                                            {
+                                                <option value="@role">@role</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn login-form__btn submit w-100">Kayıt Ol</button>
+                                </form>
+
+                                @if (!ViewData.ModelState.IsValid)
+                                {
+                                    <div class="text-danger">
+                                        @foreach (var modelState in ViewData.ModelState.Values)
+                                        {
+                                            foreach (var error in modelState.Errors)
+                                            {
+                                                <p>@error.ErrorMessage</p>
+                                            }
+                                        }
+                                    </div>
+                                }
+
+                                <p class="mt-5 login-form__footer">Hesabınız var mı? <a href="/Login" class="text-primary">Giriş Yap</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/adminweb/plugins/common/common.min.js"></script>
+    <script src="~/adminweb/js/custom.min.js"></script>
+    <script src="~/adminweb/js/settings.js"></script>
+    <script src="~/adminweb/js/gleek.js"></script>
+    <script src="~/adminweb/js/styleSwitcher.js"></script>
+</body>
+</html>

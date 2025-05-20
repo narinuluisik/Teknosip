@@ -1,18 +1,26 @@
-using Microsoft.EntityFrameworkCore;
-using TeknosipDataAccessLayer.Concrete;  // Context için
+using TeknosipDataAccessLayer.Concrete;
+using TeknosipEntityLayer.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Buraya ekleyin:
-//builder.Services.AddDbContext<Context>(options =>
-//    options.UseSqlServer("server=NARIN\\SQLEXPRESS;initial catalog=TeknosipDb;integrated security=true"));
+builder.Services.AddDbContext<Context>();
+
+builder.Services.AddIdentity<AppUser, AppRole>()
+    .AddEntityFrameworkStores<Context>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddDataProtection()
+    .SetApplicationName("TeknosipApp");
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -24,6 +32,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();  // Identity varsa Authentication da eklenmeli
 app.UseAuthorization();
 
 app.MapControllerRoute(
