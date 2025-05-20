@@ -1,0 +1,125 @@
+﻿@model List<TeknosipEntityLayer.Concrete.Feature>
+
+    @{
+    var manualTitles = new List<string>
+    {
+        "Sorun Bildirme",
+        "Destek Kurumlarının Sürece Katılımı",
+        "Çözüm Önerileri",
+        
+    };
+
+    }
+
+<section id="features" class="features section py-5 bg-light">
+
+    <!-- Tablar -->
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <ul class="nav nav-pills" data-aos="fade-up" data-aos-delay="100" role="tablist">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link @(i == 0 ? "active" : "")"
+                                id="tab-@i-tab"
+                                data-bs-toggle="pill"
+                                data-bs-target="#tab-@i"
+                                type="button"
+                                role="tab"
+                                aria-controls="tab-@i"
+                                aria-selected="@(i == 0 ? "true" : "false")">
+                            @manualTitles[i]
+                        </button>
+                    </li>
+                }
+            </ul>
+        </div>
+        <br />
+        <br />
+        <!-- Tab içerikleri kart şeklinde -->
+        <div class="tab-content" id="featuresTabContent" data-aos="fade-up" data-aos-delay="200">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var feature = Model[i];
+                <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="tab-@i" role="tabpanel" aria-labelledby="tab-@i-tab">
+                    <div class="card shadow-sm p-4 mb-4 border-0 rounded-4">
+                        <div class="row align-items-center">
+                            <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                                <i class="@feature.IconClass @feature.ColorClass" style="font-size: 7rem; line-height:1;"></i>
+                            </div>
+                            <div class="col-lg-8">
+                                <h3 class="fw-semibold mb-3">@feature.Title</h3>
+                                <p class="fs-5 text-secondary" style="line-height: 1.6;">@feature.Description</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Aradaki boşluk ve başlık -->
+<div class="container my-5 text-center" data-aos="fade-up">
+    <hr class="my-divider" />
+    <h2>Sürdürülebilir Kalkınma Hedefleri</h2>
+    <p class="text-muted fs-5">Birleşmiş Milletler Sürdürülebilir Kalkınma Hedefleri doğrultusunda önemli gelişmeler ve hedefler</p>
+</div>
+
+<!-- Kartlar -->
+<section id="features-cards" class="features-cards section">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-box orange rounded-4 shadow-sm p-4">
+                    <i class="bi bi-award fs-1"></i>
+                    <h4>Hedef 8:</h4>
+                    <h5>İnsana Yakışır İş ve Ekonomik Büyüme</h5>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-box blue rounded-4 shadow-sm p-4">
+                    <i class="bi bi-patch-check fs-1"></i>
+                    <h4>Hedef 9:</h4>
+                    <h5>Sanayi, Yenilikçilik ve Altyapı</h5>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-box green rounded-4 shadow-sm p-4">
+                    <i class="bi bi-sunrise fs-1"></i>
+                    <h4>Hedef 17:</h4>
+                    <h5>Amaçlar için Ortaklıklar</h5>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                <div class="feature-box red rounded-4 shadow-sm p-4">
+                    <i class="bi bi-shield-check fs-1"></i>
+                    <h4>Hedef 16:</h4>
+                    <h5>Barış, Adalet ve Güçlü Kurumlar</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .my-divider {
+        border: 0;
+        height: 3px;
+        background: linear-gradient(to right, transparent, #0d6efd, transparent);
+        margin: 3rem auto;
+        width: 80px;
+    }
+
+    .feature-box {
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        padding: 30px;
+        transition: transform 0.3s ease;
+    }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+</style>

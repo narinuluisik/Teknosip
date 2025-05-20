@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeknosipEntityLayer;
 using TeknosipEntityLayer.Concrete;
 
 namespace TeknosipDataAccessLayer.Concrete
@@ -22,6 +23,8 @@ namespace TeknosipDataAccessLayer.Concrete
         public DbSet<Problem> Problems { get; set; }
         public DbSet<Sector> Sectors { get; set; }
         public DbSet<About> Abouts { get; set; }
+        public DbSet<Feature> Features { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

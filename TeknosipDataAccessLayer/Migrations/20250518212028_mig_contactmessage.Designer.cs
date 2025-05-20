@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeknosipDataAccessLayer.Concrete;
 
@@ -11,9 +12,10 @@ using TeknosipDataAccessLayer.Concrete;
 namespace TeknosipDataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250518212028_mig_contactmessage")]
+    partial class mig_contactmessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,11 +274,11 @@ namespace TeknosipDataAccessLayer.Migrations
 
             modelBuilder.Entity("TeknosipEntityLayer.Concrete.ContactMessage", b =>
                 {
-                    b.Property<int>("ContactMessageId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactMessageId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -297,7 +299,7 @@ namespace TeknosipDataAccessLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ContactMessageId");
+                    b.HasKey("Id");
 
                     b.ToTable("ContactMessages");
                 });

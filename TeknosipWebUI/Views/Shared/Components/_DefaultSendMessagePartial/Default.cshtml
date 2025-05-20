@@ -1,0 +1,91 @@
+﻿@model TeknosipEntityLayer.Concrete.ContactMessage
+<!-- Contact Section -->
+<section id="contact" class="contact section light-background">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>İletişim</h2>
+        <p>Her türlü sorunuz ve destek talepleriniz için bizimle iletişime geçebilirsiniz.</p>
+    </div><!-- End Section Title -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row g-4 g-lg-5">
+
+            <!-- İletişim Bilgileri -->
+            <div class="col-lg-5">
+                <div class="info-box" data-aos="fade-up" data-aos-delay="200">
+                    <h3>İletişim Bilgileri</h3>
+                    <p>Sorularınız veya talepleriniz için bize ulaşabilirsiniz. Size yardımcı olmaktan mutluluk duyarız.</p>
+
+                    <div class="info-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="icon-box">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div class="content">
+                            <h4>Adresimiz</h4>
+                            <p>Kirazpınar Mahallesi</p>
+                            <p>Kütahya</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="icon-box">
+                            <i class="bi bi-telephone"></i>
+                        </div>
+                        <div class="content">
+                            <h4>Telefon Numarası</h4>
+                            <p>546 985 43 43</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item" data-aos="fade-up" data-aos-delay="500">
+                        <div class="icon-box">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div class="content">
+                            <h4>E-posta Adresi</h4>
+                            <p>Teknosip@example.com</p>
+                            <p>Teknosip43@example.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+
+              <form action="Default/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                                <div class="row gy-4">
+
+                                    <div class="col-md-6">
+                                        <input type="text" name="name" class="form-control" placeholder="Adınız" required="">
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <input type="email" class="form-control" name="email" placeholder="Mail Adresini" required="">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" name="subject" placeholder="Konu" required="">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <textarea class="form-control" name="message" rows="6" placeholder="Mesaj" required=""></textarea>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <div class="loading">Loading</div>
+                                        <div class="error-message"></div>
+                                        <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                                        <button type="submit" class="btn">Gönder </button>
+                                    </div>
+
+                                </div>
+                            </form>
+</div>
+
+
+
+</section>
+
