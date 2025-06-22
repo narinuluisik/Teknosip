@@ -9,5 +9,10 @@ namespace TeknosipDataAccessLayer.Abstract
 {
     public interface IProblemDal : IGenericDal<Problem>
     {
+        List<Problem> GetProblemsBySector(int sectorId);
+
+
+
+
     }
 }

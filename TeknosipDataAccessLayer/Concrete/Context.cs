@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using TeknosipEntityLayer;
@@ -25,6 +26,11 @@ namespace TeknosipDataAccessLayer.Concrete
         public DbSet<About> Abouts { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<ContactMessage> ContactMessages { get; set; }
+        public DbSet<DestekKurumu> DestekKurumlari { get; set; }
+        public DbSet<DestekTalebi> DestekTalepleri { get; set; }
+        public DbSet<Cozum> Cozums { get; set; }
+  
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -40,6 +46,14 @@ namespace TeknosipDataAccessLayer.Concrete
                 .WithMany(u => u.Problems)
                 .HasForeignKey(p => p.AppUserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+          
+
+
+
+
+
+
         }
 
 

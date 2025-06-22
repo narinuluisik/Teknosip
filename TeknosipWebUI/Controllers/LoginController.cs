@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TeknosipEntityLayer.Concrete;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace TeknosipWebUI.Controllers
 {
@@ -36,13 +38,19 @@ namespace TeknosipWebUI.Controllers
                 ModelState.AddModelError("", "Geçersiz kullanıcı.");
                 return View();
             }
+
             var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
             if (result.Succeeded)
             {
                 var roles = await _userManager.GetRolesAsync(user);
+
                 if (roles.Contains("Problem Sahibi"))
                 {
                     return RedirectToAction("Index", "ProblemSahibi");
+                }
+                else if (roles.Contains("Destek Kurumu"))
+                {
+                    return RedirectToAction("BekleyenSorunlar", "DestekKurumu");
                 }
                 else
                 {
@@ -52,8 +60,6 @@ namespace TeknosipWebUI.Controllers
 
             ModelState.AddModelError("", "Şifre hatalı.");
             return View();
-
-        ;
         }
 
         [HttpPost]

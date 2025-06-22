@@ -1,0 +1,34 @@
+﻿
+
+ @Layout: Null;
+@model List<TeknosipEntityLayer.Concrete.DestekTalebi>
+
+
+    <h3 class="mt-5">Destek Sunduklarım</h3>
+    <table class="table table-bordered table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>Başlık</th>
+                <th>Sektör</th>
+                <th>Durum</th>
+                <th>Tarih</th>
+                <th>Hedef Yatırım Miktarı</th>
+            </tr>
+        </thead>
+        <tbody>
+         @foreach(var item in Model)
+        {
+            
+      
+        <tr>
+                    <td>@item.Problem.Title</td>
+                    <td>@item.DestekKurumu.KurumAdi</td>
+                    <td>@item.Tarih</td>
+                   
+                    </tr>
+
+                }
+       
+        </tbody>
+    </table>
+}

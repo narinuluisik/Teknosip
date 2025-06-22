@@ -27,5 +27,9 @@ namespace TeknosipEntityLayer.Concrete
         // Hangi sektöre ait problem?
         public int SectorId { get; set; }
         public Sector Sector { get; set; }
+
+        public ICollection<DestekTalebi> DestekTalepleri { get; set; }
+        public ICollection<Cozum>Cozums { get; set; }
+
     }
 }

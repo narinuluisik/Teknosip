@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TeknosipBusinessLayer\TeknosipBusinessLayer.csproj" />
     <ProjectReference Include="..\TeknosipDataAccessLayer\TeknosipDataAccessLayer.csproj" />
     <ProjectReference Include="..\TeknosipDto\TeknosipDto.csproj" />
     <ProjectReference Include="..\TeknosipEntityLayer\TeknosipEntityLayer.csproj" />

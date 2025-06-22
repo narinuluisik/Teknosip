@@ -9,5 +9,6 @@ namespace TeknosipBusinessLayer.Abstract
 {
     public interface IProblemService:IGenericService<Problem>
     {
+        List<Problem> GetProblemsBySector(int sectorId);
     }
 }

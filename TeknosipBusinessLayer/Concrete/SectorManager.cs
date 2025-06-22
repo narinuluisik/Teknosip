@@ -42,5 +42,6 @@ namespace TeknosipBusinessLayer.Concrete
         {
            _sectorDal.Update(t);
         }
+
     }
 }

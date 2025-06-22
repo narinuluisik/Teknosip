@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeknosipBusinessLayer.Abstract;
 using TeknosipDataAccessLayer.Abstract;
+using TeknosipDataAccessLayer.Concrete;
 using TeknosipEntityLayer.Concrete;
 
 namespace TeknosipBusinessLayer.Concrete
@@ -12,10 +14,11 @@ namespace TeknosipBusinessLayer.Concrete
     public class ProblemManager : IProblemService
     {
         private readonly IProblemDal _problemDal;
-
-        public ProblemManager(IProblemDal problemDal)
+              private readonly Context _context;
+        public ProblemManager(IProblemDal problemDal, Context context)
         {
             _problemDal = problemDal;
+            _context = context;
         }
 
         public void TDelete(Problem t)
@@ -30,7 +33,9 @@ namespace TeknosipBusinessLayer.Concrete
 
         public List<Problem> TGetList()
         {
-           return _problemDal.GetList();
+            return _context.Problems
+        .Include(p => p.Sector)
+        .ToList();
         }
 
         public void TInsert(Problem t)
@@ -41,6 +46,16 @@ namespace TeknosipBusinessLayer.Concrete
         public void TUpdate(Problem t)
         {
           _problemDal.Update(t);
+        }
+        // Sektöre göre filtreleme metodu
+
+
+        public List<Problem> GetProblemsBySector(int sektorId)
+        {
+            return _context.Problems
+                .Include(p => p.Sector)
+                .Where(p => p.SectorId == sektorId)
+                .ToList();
         }
     }
 }

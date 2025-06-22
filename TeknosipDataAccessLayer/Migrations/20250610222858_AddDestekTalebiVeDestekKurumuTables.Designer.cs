@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TeknosipDataAccessLayer.Concrete;
 
@@ -11,9 +12,10 @@ using TeknosipDataAccessLayer.Concrete;
 namespace TeknosipDataAccessLayer.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20250610222858_AddDestekTalebiVeDestekKurumuTables")]
+    partial class AddDestekTalebiVeDestekKurumuTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -297,48 +299,6 @@ namespace TeknosipDataAccessLayer.Migrations
                     b.ToTable("ContactMessages");
                 });
 
-            modelBuilder.Entity("TeknosipEntityLayer.Concrete.Cozum", b =>
-                {
-                    b.Property<int>("CozumId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CozumId"), 1L, 1);
-
-                    b.Property<string>("CozumMetni")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DestekKurumuId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("KurumAdi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("KurumEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("KurumTelefon")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProblemId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("Tarih")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CozumId");
-
-                    b.HasIndex("DestekKurumuId");
-
-                    b.HasIndex("ProblemId");
-
-                    b.ToTable("Cozums");
-                });
-
             modelBuilder.Entity("TeknosipEntityLayer.Concrete.DestekKurumu", b =>
                 {
                     b.Property<int>("DestekKurumuId")
@@ -530,25 +490,6 @@ namespace TeknosipDataAccessLayer.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("TeknosipEntityLayer.Concrete.Cozum", b =>
-                {
-                    b.HasOne("TeknosipEntityLayer.Concrete.DestekKurumu", "DestekKurumu")
-                        .WithMany("Cozums")
-                        .HasForeignKey("DestekKurumuId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TeknosipEntityLayer.Concrete.Problem", "Problem")
-                        .WithMany("Cozums")
-                        .HasForeignKey("ProblemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DestekKurumu");
-
-                    b.Navigation("Problem");
-                });
-
             modelBuilder.Entity("TeknosipEntityLayer.Concrete.DestekTalebi", b =>
                 {
                     b.HasOne("TeknosipEntityLayer.Concrete.DestekKurumu", "DestekKurumu")
@@ -594,15 +535,11 @@ namespace TeknosipDataAccessLayer.Migrations
 
             modelBuilder.Entity("TeknosipEntityLayer.Concrete.DestekKurumu", b =>
                 {
-                    b.Navigation("Cozums");
-
                     b.Navigation("DestekTalepleri");
                 });
 
             modelBuilder.Entity("TeknosipEntityLayer.Concrete.Problem", b =>
                 {
-                    b.Navigation("Cozums");
-
                     b.Navigation("DestekTalepleri");
                 });
 

@@ -1,0 +1,240 @@
+﻿@model List<TeknosipEntityLayer.Concrete.Problem>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+
+@await Component.InvokeAsync("_DefaultHeadPartial")
+
+<body class="index-page">
+
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+            <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+                <h1 class="sitename">TEKNOSIP</h1>
+            </a>
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="/DestekKurumu/BekleyenSorunlar/" class="active">Anasayfa</a></li>
+                    <li><a href="/ProblemSahibi/Problemler">Desteklerim</a></li>
+                    <li><a href="/Account/Logout">Çıkış Yap</a></li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main pt-5" style="padding-top: 100px;">
+        <section id="hero" class="hero section py-5">
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <br /><br />
+                <div class="text-center mb-5">
+                    <br /><br /><br /><br />
+                    <h2 class="fw-bold">Desteklenmeyi Bekleyen Problemler</h2>
+                    <p class="text-muted">Size uygun sorunları inceleyerek çözüm önerisi sunabilirsiniz.</p>
+                </div>
+
+                <form method="get" asp-action="BekleyenSorunlar">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            @Html.DropDownList("sektorId", ViewBag.Sektorler as SelectList, "Tüm Sektörler", new { @class = "form-select" })
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary">Filtrele</button>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table table-bordered table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Başlık</th>
+                            <th>Sektör</th>
+                            <th>Durum</th>
+                            <th>Tarih</th>
+                            <th>Hedef Yatırım Miktarı</th>
+
+                            <th>İşlem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Description</td>
+                                    <td>@item.Sector?.Name</td>
+                                    <td>@item.Status</td>
+                                    <td>@item.OlusturmaTarihi.ToString("dd.MM.yyyy")</td>
+                                    <td>@item.Price.ToString()</td> 
+                                    <td>
+                                        <button class="btn btn-info btn-sm detayBtn" 
+                                                data-id="@item.ProblemId" 
+                                                data-description="@item.Description"
+                                                data-sector="@item.Sector?.Name"
+                                                data-status="@item.Status"
+                                                data-price="@item.Price"
+                                                data-date="@item.OlusturmaTarihi.ToString("dd.MM.yyyy")"
+                                             >
+                                            Detay
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center">Gösterilecek sorun bulunamadı.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+              
+            </div>
+        </section>
+    </main>
+
+    <!-- Detay ve Destek Modal -->
+    <div class="modal fade" id="detayModal" tabindex="-1" aria-labelledby="detayModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <form id="destekForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="detayModalLabel">Problem Detayları</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Kapat"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="problemId" name="problemId" />
+                        <dl class="row">
+                            <dt class="col-sm-3">Başlık</dt>
+                            <dd class="col-sm-9" id="modalDescription"></dd>
+
+                            <dt class="col-sm-3">Sektör</dt>
+                            <dd class="col-sm-9" id="modalSector"></dd>
+
+                            <dt class="col-sm-3">Durum</dt>
+                            <dd class="col-sm-9" id="modalStatus"></dd>
+
+                            <dt class="col-sm-3">Tarih</dt>
+                            <dd class="col-sm-9" id="modalDate"></dd>
+
+                            <dt class="col-sm-3">Hedef Yatırım Miktarı</dt>
+                            <dd class="col-sm-9" id="modalPrice"></dd>
+                            <dt class="col-sm-3">Detay</dt>
+                            <dd class="col-sm-9" id="modalDetails"></dd>
+                        </dl>
+
+                        <hr />
+
+                        <h5>Destek Talebi Gönder</h5>
+                        <div class="mb-3">
+                            <label for="mesaj" class="form-label">Açıklama</label>
+                            <textarea class="form-control" id="mesaj" name="mesaj" rows="4" required></textarea>
+                        </div>
+                        <div id="destekAlert" class="alert d-none"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                        <button type="submit" class="btn btn-primary">Destek Sun</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    @await Component.InvokeAsync("_DefaultFooterPartial")
+    @await Component.InvokeAsync("_DefaultScriptPartial")
+
+    <script>
+        const detayModal = new bootstrap.Modal(document.getElementById('detayModal'));
+
+        document.querySelectorAll('.detayBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Butondan verileri al
+                const id = btn.getAttribute('data-id');
+                const description = btn.getAttribute('data-description');
+                const sector = btn.getAttribute('data-sector');
+                const status = btn.getAttribute('data-status');
+                const date = btn.getAttribute('data-date');
+                const details = btn.getAttribute('data-details');
+
+                const price = btn.getAttribute('data-price');
+
+                // Modal alanlarını doldur
+                document.getElementById('problemId').value = id;
+                document.getElementById('modalDescription').textContent = description;
+                document.getElementById('modalSector').textContent = sector;
+                document.getElementById('modalStatus').textContent = status;
+                document.getElementById('modalDate').textContent = date;
+                document.getElementById('modalDetails').textContent = details;
+                document.getElementById('modalPrice').textContent = new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY' }).format(price);
+
+
+                // Mesaj alanını temizle ve alert gizle
+                document.getElementById('mesaj').value = '';
+                const alertBox = document.getElementById('destekAlert');
+                alertBox.classList.add('d-none');
+                alertBox.textContent = '';
+
+                // Modalı göster
+                detayModal.show();
+            });
+        });
+
+        document.getElementById('destekForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const problemId = document.getElementById('problemId').value;
+            const mesaj = document.getElementById('mesaj').value.trim();
+            const alertBox = document.getElementById('destekAlert');
+
+            if (!mesaj) {
+                alertBox.textContent = 'Lütfen açıklama giriniz.';
+                alertBox.className = 'alert alert-danger';
+                alertBox.classList.remove('d-none');
+                return;
+            }
+
+            fetch('/DestekKurumu/DestekSun', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ problemId, mesaj })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Sunucu ile bağlantı kurulamadı.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alertBox.textContent = data.message;
+                        alertBox.className = 'alert alert-success';
+                        alertBox.classList.remove('d-none');
+
+                        setTimeout(() => {
+                            window.location.reload(); // Sayfayı yenile
+                        }, 2000);
+                    } else {
+                        throw new Error(data.message || "Bilinmeyen bir hata oluştu.");
+                    }
+                })
+                .catch(error => {
+                    alertBox.textContent = error.message;
+                    alertBox.className = 'alert alert-danger';
+                    alertBox.classList.remove('d-none');
+                });
+        });
+
+    </script>
+
+</body>
+</html>
